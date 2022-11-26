@@ -302,7 +302,389 @@ Untuk hasil yang kelompok kami dapat seperti berikut. <br>
 ![image](https://user-images.githubusercontent.com/70515589/203866191-161e85e2-60d1-41cf-b52a-e926d654cc01.png)
 
 
-## Problem CIDR dengan GNS3
+## Teknik CIDR dengan GNS3
+### Pembagian Subnet
+Subnet The Beast dan The Witch akan dialokasikan diakhir agar subnet yang dibutuhkan tidak lebih dari /16 agar tidak terjadi perubahan prefix IP
+![image](https://user-images.githubusercontent.com/100585249/204082052-c461a093-fd8e-40e6-80bb-e420af6656b6.png)
+
+### Proses CIDR
+![image](https://user-images.githubusercontent.com/100585249/204082115-098846e3-618d-4931-baaa-646c93e5aeeb.png)
+![image](https://user-images.githubusercontent.com/100585249/204082122-cd39d911-3739-48c3-b692-65f8beb7b1c2.png)
+![image](https://user-images.githubusercontent.com/100585249/204082123-dc4c8b53-e258-4804-8966-7fd3ea19700f.png)
+![image](https://user-images.githubusercontent.com/100585249/204082127-68203223-b894-45cd-b731-dbbf4d45ced0.png)
+![image](https://user-images.githubusercontent.com/100585249/204082132-580b073a-2b7f-4971-b8ba-325a8e9284ef.png)
+![image](https://user-images.githubusercontent.com/100585249/204082136-d80a00bb-6024-46d0-a3fe-626c1fb5206a.png)
+![image](https://user-images.githubusercontent.com/100585249/204082138-28f154ab-2424-4670-bd86-b0d0faa1b34d.png)
+![image](https://user-images.githubusercontent.com/100585249/204082143-34e8257f-598b-4db9-8b01-a922479b7121.png)
+
+### Subnet Tree
+![image](https://user-images.githubusercontent.com/100585249/204082155-5b828802-d772-46ab-b09c-1e1b39ad8dee.png)
+
+Subnet F2 192.175.0.0/18 (192.175.0.0-192.175.63.255) dibagi menjadi subnet E1 dan B2, dan masih tersisa IP 192.175.32.4-192.175.63.255 yang belum terpakai. Sisa IP tersebut dapat kita alokasikan untuk server The Beast `192.175.32.4/30` dan The Witch `192.175.32.8/30`.
+
+### Network Configuration
+#### The Resonance
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 192.175.160.1
+	netmask 255.255.255.252
+
+
+auto eth2
+iface eth2 inet static
+	address 192.175.32.1
+	netmask 255.255.255.252
+
+auto eth3
+iface eth3 inet static
+	address 192.175.66.1
+	netmask 255.255.255.252
+
+auto eth4
+iface eth4 inet static
+	address 192.175.32.5
+	netmask 255.255.255.252
+```
+
+#### The Order
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.160.2
+	netmask 255.255.255.252
+	gateway 192.175.160.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.136.1
+	netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+	address 192.175.144.1
+	netmask 255.255.255.192
+```
+
+#### The Minister
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.136.2
+	netmask 255.255.255.252
+	gateway 192.175.136.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.128.1
+	netmask 255.255.252.0
+
+auto eth2
+iface eth2 inet static
+	address 192.175.133.1
+	netmask 255.255.255.252
+```
+
+#### The Dauntless
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.133.2
+	netmask 255.255.255.252
+	gateway 192.175.133.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.132.1
+	netmask 255.255.255.0
+```
+
+#### The Instrument
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.32.2
+	netmask 255.255.255.252
+	gateway 192.175.32.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.16.1
+	netmask 255.255.255.128
+
+auto eth2
+iface eth2 inet static
+	address 192.175.4.1
+	netmask 255.255.255.252
+
+auto eth3
+iface eth3 inet static
+	address 192.175.9.1
+	netmask 255.255.255.252
+```
+
+#### The Firefist 
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.4.2
+	netmask 255.255.255.252
+	gateway 192.175.4.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.2.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 192.175.0.1
+	netmask 255.255.254.0
+```
+
+#### The Queen
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.2.3
+	netmask 255.255.255.0
+	gateway 192.175.2.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.32.9
+	netmask 255.255.255.252
+```
+
+#### The Profound
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.9.2
+	netmask 255.255.255.252
+	gateway 192.175.9.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.8.1
+	netmask 255.255.255.128
+
+auto eth2
+iface eth2 inet static
+	address 192.175.8.129
+	netmask 255.255.255.128
+```
+
+#### The Magical 
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.66.2
+	netmask 255.255.255.252
+	gateway 192.175.66.1
+
+auto eth1
+iface eth1 inet static
+	address 192.175.64.1
+	netmask 255.255.254.0
+```
+
+#### PC Phanora
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.132.3
+	netmask 255.255.255.0
+	gateway 192.175.132.1
+```
+
+#### PC Johan
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.132.2
+	netmask 255.255.255.0
+	gateway 192.175.132.1
+```
+
+#### PC Guideau
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.128.2
+	netmask 255.255.252.0
+	gateway 192.175.128.1
+```
+
+#### PC Ashaf
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.144.2
+	netmask 255.255.255.192
+	gateway 192.175.144.1
+```
+
+#### PC Matt Cugat
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.16.2
+	netmask 255.255.255.128
+	gateway 192.175.16.1
+```
+
+#### PC Keith
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.2.2
+	netmask 255.255.255.0
+	gateway 192.175.2.1
+```
+
+#### PC Oakleave
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.0.2
+	netmask 255.255.254.0
+	gateway 192.175.0.1
+```
+
+#### PC Spendrow
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.8.130
+	netmask 255.255.255.128
+	gateway 192.175.8.129
+```
+
+#### PC Helga
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.8.2
+	netmask 255.255.255.128
+	gateway 192.175.8.1
+```
+
+#### PC Haines
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.64.3
+	netmask 255.255.254.0
+	gateway 192.175.64.1
+```
+
+#### PC Corvekt
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.64.2
+	netmask 255.255.254.0
+	gateway 192.175.64.1
+
+```
+
+#### Server The Beast
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.32.6
+	netmask 255.255.255.252
+	gateway 192.175.32.5
+```
+
+#### Server The Witch
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.32.10
+	netmask 255.255.255.252
+	gateway 192.175.32.9
+```
+
+### Routing
+- Resonance
+```
+#left
+route add -net 192.175.144.0 netmask 255.255.255.192 gw 192.175.160.2 # A5
+route add -net 192.175.136.0 netmask 255.255.255.252 gw 192.175.160.2 # A4
+route add -net 192.175.128.0 netmask 255.255.252.0 gw 192.175.160.2 # A3
+route add -net 192.175.133.0 netmask 255.255.255.252 gw 192.175.160.2 # A2
+route add -net 192.175.132.0 netmask 255.255.255.0 gw 192.175.160.2 # A1
+#down
+route add -net 192.175.16.0 netmask 255.255.255.128 gw 192.175.32.2 # A10
+route add -net 192.175.4.0 netmask 255.255.255.252 gw 192.175.32.2 # A11
+route add -net 192.175.0.0 netmask 255.255.254.0 gw 192.175.32.2 # A12
+route add -net 192.175.2.0 netmask 255.255.255.0 gw 192.175.32.2 # A13
+route add -net 192.175.9.0 netmask 255.255.255.252 gw 192.175.32.2 # A14
+route add -net 192.175.8.0 netmask 255.255.255.128 gw 192.175.32.2 # A15
+route add -net 192.175.8.128 netmask 255.255.255.128 gw 192.175.32.2 # A16
+route add -net 192.175.32.8 netmask 255.255.255.252 gw 192.175.32.2 # Witch
+#right
+route add -net 192.175.64.0 netmask 255.255.254.0 gw 192.175.66.2 # A8
+```
+
+
+
+- Order
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.160.1
+route add -net 192.175.128.0 netmask 255.255.252.0 gw 192.175.136.2 # A3
+route add -net 192.175.133.0 netmask 255.255.255.252 gw 192.175.136.2 # A2
+route add -net 192.175.132.0 netmask 255.255.255.0 gw 192.175.136.2 # A1
+```
+
+- Minister
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.136.1
+route add -net 192.175.132.0 netmask 255.255.255.0 gw 192.175.133.2 # A1
+```
+
+- Dauntless
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.133.1
+```
+
+- Magical
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.66.1
+```
+
+- Instrument
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.32.1
+route add -net 192.175.0.0 netmask 255.255.254.0 gw 192.175.4.2 # A12
+route add -net 192.175.2.0 netmask 255.255.255.0 gw 192.175.4.2 # A13
+route add -net 192.175.8.0 netmask 255.255.255.128 gw 192.175.9.2 # A15
+route add -net 192.175.8.128 netmask 255.255.255.128 gw 192.175.9.2 # A16
+route add -net 192.175.32.8 netmask 255.255.255.252 gw 192.175.4.2 # Witch
+```
+
+- Firefist
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.4.1
+route add -net 192.175.32.8 netmask 255.255.255.252 gw 192.175.2.3 # Witch
+```
+
+- Queen
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.2.1
+```
+
+- Profound
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.175.9.1
+```
+
+
 ### Screenshot Testing
 
 * Guideau
