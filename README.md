@@ -336,3 +336,7 @@ Untuk hasil yang kelompok kami dapat seperti berikut. <br>
 
 * Oakleave
 ![Oakleave](https://user-images.githubusercontent.com/91010605/203543338-58be44b2-7a5a-4b42-b5b8-0e5604a9a2f0.png)
+
+
+## Kendala 
+- Saat Pengerjaan VLSM, konfigurasi IP nya ternyata harus sesuai dengan kabelnya mengarah ke node mana, jadi kemarin sempat gagal karena belum mengetahui hal itu.
